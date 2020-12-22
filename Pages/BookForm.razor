@@ -1,0 +1,36 @@
+﻿<EditForm Model="CurrentBook" OnValidSubmit="@(e => Update())">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <span class="form-text">@CurrentBook.Id</span>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <InputText id="book_name" @bind-Value="CurrentBook.Name" class="form-control"></InputText>
+                <label for="book_name">Book Name</label>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-3">
+            <div class="form-group">
+                    <InputSelect @bind-Value="CurrentBook.Classification" class="form-control" id="book_dd">
+                        <option value="">Select classification ...</option>
+                        <option value="Exploration">Exploration</option>
+                        <option value="Diplomacy">Diplomacy</option>
+                        <option value="Defense">Defense</option>
+                    </InputSelect>
+                <label for="book_dd">
+                    Test DD
+                </label>
+            </div>           
+        </div>
+    </div>
+    <div class="form-group">
+        <InputDate id="book_date" @bind-Value="CurrentBook.PublishDate" class="form-control"></InputDate>
+        <label for="book_date">Date</label>
+    </div>
+    <div class="card-footer">
+        <button class="btn button-secondary" @onclick="OnCancelCallback">Cancel</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</EditForm>
