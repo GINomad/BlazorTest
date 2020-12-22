@@ -1,4 +1,5 @@
 ﻿using FeatureToggle;
+using FeatureToggle.Internal;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System;
@@ -30,7 +31,10 @@ namespace BlazorTest.FeatureProviders
 
         public bool EvaluateBooleanToggleValue(IFeatureToggle toggle)
         {
-            return false;
+            var client = new RestClient("https://localhost:44325/");
+            var response = client.Get<JsonEnabledResponse>(new RestRequest("api/configuration/feature", Method.GET));
+            var result = response.Data;
+            return result.Enabled;
         }
 
         public DateTime EvaluateDateTimeToggleValue(IFeatureToggle toggle)

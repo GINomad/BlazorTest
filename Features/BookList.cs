@@ -2,7 +2,7 @@
 
 namespace BlazorTest.Features
 {
-    public class Weather: SimpleFeatureToggle
+    public class BookList: SimpleFeatureToggle
     {
     }
 }

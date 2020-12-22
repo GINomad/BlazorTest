@@ -1,47 +1,54 @@
 ﻿@page "/books"
 
-<link rel="stylesheet" href="css/book-list/book-list.css" />
-@if (Books == null || !Books.Any())
+@if (BookListFeatureDecorator.FeatureEnabled)
 {
-    <p><em>Loading...</em></p>
+    <link rel="stylesheet" href="css/book-list/book-list.css" />
+    @if (Books == null || !Books.Any())
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="row">
+            <div class="@ComponentSize">
+                <table class="table">
+                    <thead class="bl-table-header ">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Published</th>
+                            <th>Author</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var book in Books)
+                        {
+                            <tr>
+                                <td>@book.Id</td>
+                                <td>@book.Name</td>
+                                <td>@book.Description</td>
+                                <td>@book.PublishDate.Date</td>
+                                <td>@book.Author.Name</td>
+                                <td><button class="btn btn-light" hidden="@(SelectedBook != null ? "hidden" : null)" @onclick="@(e => OnEditClick(book))">Edit</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (SelectedBook != null)
+            {
+                <div class="col-md-4">
+                    <BookForm BookId="SelectedBook.Id" OnSubmitCallback="Reload" OnCancelCallback="Reload"></BookForm>
+                </div>
+            }
+
+        </div>
+
+    }
 }
 else
 {
-<div class="row">
-    <div class="@ComponentSize">
-        <table class="table">
-            <thead class="bl-table-header ">
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Published</th>
-                    <th>Author</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var book in Books)
-                {
-                    <tr>
-                        <td>@book.Id</td>
-                        <td>@book.Name</td>
-                        <td>@book.Description</td>
-                        <td>@book.PublishDate.Date</td>
-                        <td>@book.Author.Name</td>
-                        <td><button class="btn btn-light" hidden="@(SelectedBook != null ? "hidden": null)" @onclick="@(e => OnEditClick(book))">Edit</button></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    @if (SelectedBook != null)
-    {
-        <div class="col-md-4">
-            <BookForm BookId="SelectedBook.Id" OnSubmitCallback="Reload" OnCancelCallback="Reload"></BookForm>
-        </div>
-    }
-
-</div>
-    
+    <h1>Book list is unavailable</h1>
 }

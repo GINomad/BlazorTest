@@ -1,5 +1,6 @@
 using BlazorTest.Data;
 using BlazorTest.Data.Abstractions;
+using BlazorTest.FeatureProviders;
 using BlazorTest.Features;
 using FeatureToggle.Internal;
 using Microsoft.AspNetCore.Builder;
@@ -30,9 +31,14 @@ namespace BlazorTest
         {
             // Set provider config so file is read from content root path
             var provider = new AppSettingsProvider { Configuration = Configuration };
-
+            var httpProvider = new HttpFeatureProvider { Configuration = Configuration };
             services.AddSingleton(new Counter { ToggleValueProvider = provider });
-            services.AddSingleton(new Weather { ToggleValueProvider = provider });
+            //decorated
+            services.AddSingleton(new BookListCacheDecorator( 
+                new BookList { ToggleValueProvider = httpProvider }, 
+                new System.TimeSpan(0,2,0)
+                ));
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();

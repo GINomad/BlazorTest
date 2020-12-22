@@ -6,7 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FakeConfigurationServer\**" />
+    <Content Remove="FakeConfigurationServer\**" />
+    <EmbeddedResource Remove="FakeConfigurationServer\**" />
+    <None Remove="FakeConfigurationServer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FeatureToggle" Version="4.0.2" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using BlazorTest.Data.Abstractions;
 using BlazorTest.Data.Models;
+using BlazorTest.Features;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
@@ -9,6 +10,8 @@ namespace BlazorTest.Pages
     {
         [Inject]
         private IBookListService BookListService { get; set; }
+        [Inject]
+        private BookListCacheDecorator BookListFeatureDecorator {get;  set; }
         private IEnumerable<Book> _books;
         
         public BookList()
