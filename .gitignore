@@ -1,3 +1,2 @@
-/bin
-/obj
-/.vs
+/Server/ConfigurationServer/obj
+/Server/ConfigurationServer/bin

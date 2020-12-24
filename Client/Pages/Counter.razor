@@ -1,0 +1,25 @@
+﻿@page "/counter"
+
+<Feature Name="Counter">
+    <Loading>
+        <p style="color:red">LOADING</p>
+    </Loading>
+    <Enabled>
+        <h1>Counter</h1>
+
+        <p>Current count: @currentCount</p>
+
+        <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+    </Enabled>
+    <Disabled><p>Counter is not enabled!</p></Disabled>
+</Feature>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

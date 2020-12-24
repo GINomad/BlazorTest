@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BlazorTest.Data;
+using BlazorTest.Data.Abstractions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorTest.Data;
-using BlazorTest.Data.Abstractions;
+using System;
+using System.Net.Http;
 
 namespace BlazorTest
 {
@@ -27,6 +23,8 @@ namespace BlazorTest
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(new HttpClient { BaseAddress = new Uri("https://localhost:44393/") });
+            services.AddEsquioClient();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
@@ -56,6 +54,7 @@ namespace BlazorTest
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapEsquio();
             });
         }
     }
