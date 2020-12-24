@@ -1,5 +1,6 @@
 ﻿using BlazorTest.Data.Abstractions;
 using BlazorTest.Data.Models;
+using Esquio.Abstractions;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
@@ -9,6 +10,8 @@ namespace BlazorTest.Pages
     {
         [Inject]
         private IBookListService BookListService { get; set; }
+        [Inject]
+        private IFeatureService FeatureService { get; set; }
         private IEnumerable<Book> _books;
         
         public BookList()

@@ -23,8 +23,10 @@ namespace BlazorTest
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(new HttpClient { BaseAddress = new Uri("https://localhost:44393/") });
-            services.AddEsquioClient();
+            services
+                .AddEsquio()
+                .AddAspNetCoreDefaultServices()
+                .AddConfigurationStore(Configuration);
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
@@ -54,7 +56,6 @@ namespace BlazorTest
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
-                endpoints.MapEsquio();
             });
         }
     }
